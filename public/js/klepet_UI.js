@@ -14,7 +14,6 @@ function divElementHtmlTekst(sporocilo) {
 
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
-
   sporocilo = dodajSmeske(sporocilo);
   var sistemskoSporocilo;
 
@@ -28,15 +27,6 @@ function procesirajVnosUporabnika(klepetApp, socket) {
     klepetApp.posljiSporocilo(trenutniKanal, sporocilo);
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
-    
-    poisciSlike(sporocilo);
-    
-    for (var i = 0; i < iZacetek.length; i++) {
-      var img = sporocilo.substring(iZacetek[i], iKonec[i]);
-      console.log(iZacetek[i] + " | " + iKonec[i] + " | " + iZacetek.length);
-      console.log("<img style='with=200px; border=20px' src='" +img+ "'>");
-      $('#sporocila').append($('<div></div>').html('<img style="width:200px; padding-left:20px" src="' +img+ '">'));
-    }
   }
 
   $('#poslji-sporocilo').val('');
@@ -110,10 +100,10 @@ $(document).ready(function() {
       $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
     }
     
-    $('#seznam-uporabnikov div').click(function() {
-       $('#poslji-sporocilo').val('/zasebno "' + $(this).text() + '" ');
-       $('#poslji-sporocilo').focus();
-    });
+        $('#seznam-uporabnikov div').click(function() {
+        $('#poslji-sporocilo').val('/zasebno "' + $(this).text() + '" ');
+        $('#poslji-sporocilo').focus();
+     });
   });
 
   setInterval(function() {
@@ -145,92 +135,4 @@ function dodajSmeske(vhodnoBesedilo) {
       preslikovalnaTabela[smesko] + "' />");
   }
   return vhodnoBesedilo;
-}
-
-var iZacetek = [];
-var iKonec = [];
-
-function poisciSlike(sporocilo){
-  var countZacetek = 0;
-  var countKonec = 0;
-  console.log("function; " +sporocilo);
-  console.log("length; " +sporocilo.length);
-  for (var i = 0; i < sporocilo.length; i++) {
-    
-    //// Poisce zacetek: https:// oz http://
-    if(sporocilo.charAt(i) == "h"){
-      if(sporocilo.charAt(i+1) == "t"){
-        if(sporocilo.charAt(i+2) == "t"){
-          if(sporocilo.charAt(i+3) == "p"){
-            
-            if(sporocilo.charAt(i+4) == "s"){
-              if(sporocilo.charAt(i+5) == ":"){
-                if(sporocilo.charAt(i+6) == "/"){
-                  if(sporocilo.charAt(i+7) == "/"){
-                    iZacetek[countZacetek] = i;
-                    countZacetek += 1;
-                    
-                    console.log("najdu https:// na " + i);
-                  }
-                }
-              }
-            }
-            if(sporocilo.charAt(i+4) == ":"){
-              if(sporocilo.charAt(i+5) == "/"){
-                if(sporocilo.charAt(i+6) == "/"){
-                  iZacetek[countZacetek] = i;
-                  countZacetek += 1;
-                  console.log("countZacetek" + countZacetek);
-                  console.log("najdu http:// na " + i);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    
-    //// Poisci konec: .jpg oz .png oz .gif
-    if(sporocilo.charAt(i) == "."){
-      if(sporocilo.charAt(i+1) == "j"){
-        if(sporocilo.charAt(i+2) == "p"){
-          if(sporocilo.charAt(i+3) == "g"){
-            //to do
-            iKonec[countKonec] = i+4;
-            countKonec += 1;
-             
-            console.log("najdu .jpg na " + i);
-          }
-        }
-      }
-    }
-    
-    if(sporocilo.charAt(i) == "."){
-      if(sporocilo.charAt(i+1) == "p"){
-        if(sporocilo.charAt(i+2) == "n"){
-          if(sporocilo.charAt(i+3) == "g"){
-            //to do
-            iKonec[countKonec] = i+4;
-            countKonec += 1;
-            
-            console.log("najdu .png na " + i);
-          }
-        }
-      }
-    }
-    
-    if(sporocilo.charAt(i) == "."){
-      if(sporocilo.charAt(i+1) == "g"){
-        if(sporocilo.charAt(i+2) == "i"){
-          if(sporocilo.charAt(i+3) == "f"){
-            //to do
-            iKonec[countKonec] = i+4;
-            countKonec += 1;
-            
-            console.log("najdu .gif na " + i);
-          }
-        }
-      }
-    }
-  }
 }
