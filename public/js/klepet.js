@@ -48,7 +48,6 @@ Klepet.prototype.procesirajUkaz = function(ukaz) {
       var dregljaj = besede.join(' ');
       
       if(dregljaj){
-        console.log("Dregljaj: " + dregljaj);
         this.socket.emit('dregljaj', {vzdevek: dregljaj});
       }
       break;
