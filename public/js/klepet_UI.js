@@ -194,6 +194,7 @@ function dodajSmeske(vhodnoBesedilo) {
   }
   return vhodnoBesedilo;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 }
 
@@ -243,3 +244,6 @@ function poisciVideo(sporocilo){
   }
 }}
 >>>>>>> youtube
+=======
+}
+>>>>>>> zasebna
